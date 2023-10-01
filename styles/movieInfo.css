@@ -1,0 +1,115 @@
+:root {
+    --background-color: #14213D;
+    --highlight-color: #FCA311;
+    --text-color-light: #E5E5E5;
+    --text-color-dark: #000000;
+}
+
+.outer-container {
+    background: none;
+}
+
+.inner-container {
+    background-color: rgb(0,0,0,0.5);
+    border-radius: 50px;
+}
+
+#poster-img {
+    width: 100%;
+    border-radius: 25px;
+}
+
+#movie-title {
+    color: var(--text-color-light);
+}
+
+#tagline {
+    color: #E5E5E5;
+    font-style: italic;
+    font-weight:100;
+}
+
+#overview-paragraph {
+    color: var(--text-color-light);
+    margin-bottom: 8px;
+}
+
+.genre-pill {
+    background-color: #FCA311;
+    font-size: smaller;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
+.info-text {
+    color: var(--text-color-light);
+    font-weight: 200;
+}
+
+.info-link {
+    color: var(--highlight-color);
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.info-link:visited {
+    color: var(--highlight-color);
+}
+
+.info-link:hover {
+    text-decoration: underline;
+}
+
+.info-link:focus {
+    outline-color: var(--highlight-color);
+    outline-style: solid;
+}
+
+#add-button {
+    width: 70%;
+}
+
+input#add-button.btn.btn-primary {
+    border-radius: 1.9rem;
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+input#add-button.btn.btn-primary:hover {
+    background-color: var(--text-color-light);
+    color: var(--text-color-dark);
+    border-color: var(--text-color-dark);
+}
+
+#back-button {
+    margin-top: 8px;
+    margin-left: 15px;
+    padding-bottom: 15px;
+    font-size: large;
+}
+
+#back-button svg {
+    margin-right: 5px;
+}
+
+#back-button a {
+    color: var(--text-color-light);
+    text-decoration: none;
+}
+
+#back-button a:hover {
+    color: var(--highlight-color);
+}
+
+.rating-container {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#starContainer {
+    color: var(--highlight-color);
+}
+
+#ratingNumber {
+    color: var(--text-color-light);
+}

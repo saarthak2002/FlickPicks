@@ -1,2 +1,3 @@
 # FlickPicks
-## CS 4640 Class Project
+_CS 4640 Class Project_
+
