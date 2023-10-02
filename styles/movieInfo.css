@@ -69,13 +69,13 @@
     width: 70%;
 }
 
-input#add-button.btn.btn-primary {
+#add-button.btn.btn-primary {
     border-radius: 1.9rem;
     background-color: var(--highlight-color);
     border-color: var(--highlight-color);
 }
 
-input#add-button.btn.btn-primary:hover {
+#add-button.btn.btn-primary:hover {
     background-color: var(--text-color-light);
     color: var(--text-color-dark);
     border-color: var(--text-color-dark);
@@ -112,4 +112,23 @@ input#add-button.btn.btn-primary:hover {
 
 #ratingNumber {
     color: var(--text-color-light);
+}
+
+.modal-title {
+    color: var(--text-color-light);
+}
+
+.modal-content {
+    background-color: var(--background-color);
+}
+
+#modal-save-button {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#modal-save-button:hover {
+    background-color: var(--text-color-light);
+    border-color: var(--text-color-light);
+    color: #000000;
 }

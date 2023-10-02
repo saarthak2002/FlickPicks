@@ -6,7 +6,7 @@ const previousButton = document.getElementById('previous-button');
 const adultCheckbox = document.getElementById('adult-toggle');
 
 let page = 1;
-maxPages = 1;
+let maxPages = 1;
 let searchQuery = '';
 
 searchButton.addEventListener('click', (event) => {

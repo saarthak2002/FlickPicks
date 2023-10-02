@@ -1,0 +1,48 @@
+:root {
+    --background-color: #14213D;
+    --highlight-color: #FCA311;
+    --text-color-light: #E5E5E5;
+    --text-color-dark: #000000;
+}
+
+html {
+    background-color: var(--background-color);
+}
+
+section {
+    background-image: url('../resources/film-bg.png');
+    background-size: cover;
+    background-color: var(--highlight-color);
+}
+
+.card {
+    background: rgba(20, 33, 61, 0.85);
+}
+
+#auth-other-link {
+    color: var(--highlight-color);
+}
+
+#auth-other-link:hover {
+    color: var(--text-color-light);
+}
+
+@media only screen and (max-width: 480px) {
+    
+    section {
+        background-image: none;
+    }
+
+    #form-logo {
+        width: 200px;
+    }
+
+    .card {
+        background: rgba(20, 33, 61, 1.0);
+    }
+
+    .card:hover {
+        transform: none;
+    }
+    
+}
