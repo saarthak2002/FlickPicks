@@ -3,7 +3,10 @@ const searchBar = document.getElementById('search-bar');
 const searchButton = document.getElementById('search-button');
 const nextButton = document.getElementById('next-button');
 const previousButton = document.getElementById('previous-button');
+const topNextButton = document.getElementById('top-next-button');
+const topPreviousButton = document.getElementById('top-previous-button');
 const adultCheckbox = document.getElementById('adult-toggle');
+const pageIndicator = document.getElementById('page-indicator');
 
 let page = 1;
 let maxPages = 1;
@@ -14,19 +17,44 @@ searchButton.addEventListener('click', (event) => {
     searchQuery = searchBar.value;
     page = 1;
     fetch_movies(searchQuery, page);
-})
+});
 
 nextButton.addEventListener('click', (event) => {
     page = page + 1;
+    pageIndicator.textContent = `${page}/${maxPages}`;
     fetch_movies(searchQuery, page);
 });
+
+topNextButton.addEventListener('click', (event) => {
+    page = page + 1;
+    pageIndicator.textContent = `${page}/${maxPages}`;
+    fetch_movies(searchQuery, page);
+});
+
 
 previousButton.addEventListener('click', (event) => {
     if (page > 1) {
         page = page - 1;
+        pageIndicator.textContent = `${page}/${maxPages}`;
         fetch_movies(searchQuery, page);
     }
 });
+
+topPreviousButton.addEventListener('click', (event) => {
+    if (page > 1) {
+        page = page - 1;
+        pageIndicator.textContent = `${page}/${maxPages}`;
+        fetch_movies(searchQuery, page);
+    }
+});
+
+function truncateTitle(title) {
+    if (title.length > 20) {
+        return title.substring(0, 20) + '...';
+    } else {
+        return title;
+    }
+}
 
 function fetch_movies(searchQuery, page) {
     console.log(adultCheckbox.checked);
@@ -48,6 +76,17 @@ function fetch_movies(searchQuery, page) {
         const displayArea = document.getElementById("movie-results");
         displayArea.innerHTML = '';
         maxPages = movies.total_pages;
+        pageIndicator.textContent = `${page}/${maxPages}`;
+        if (movies.results.length === 0) {
+            displayArea.innerHTML = `
+                <div id="noResultsFound" class="mx-auto text-center">
+                    <h2>
+                        Nothing to see here... :(
+                    </h2>
+                </div>
+            `;
+            pageIndicator.textContent = '';
+        }
         movies.results.forEach(movie => {
             
             const movieItem = document.createElement("div");
@@ -61,15 +100,20 @@ function fetch_movies(searchQuery, page) {
             
             if(movie.poster_path === null) {
                 posterImage.setAttribute("src", "./resources/default-card-image.png");
+                posterImage.setAttribute("alt", ".default flick picks logo");
             }
             else {
                 posterImage.setAttribute("src", "https://image.tmdb.org/t/p/original/" + movie.poster_path);
+                posterImage.setAttribute("alt", `${movie.original_title} poster`);
             }
 
             posterImage.classList.add("class", "card-img-top");
     
-            const title = document.createElement("h2");
-            title.textContent = movie.original_title;
+            
+            const title = document.createElement("h5");
+            title.classList.add('card-title');
+            title.classList.add('text-center');
+            title.textContent = truncateTitle(movie.original_title);
     
             const form = document.createElement("form");
             form.setAttribute("action", "form-handler.php");
@@ -85,17 +129,18 @@ function fetch_movies(searchQuery, page) {
             movieId.setAttribute("name", "id");
             movieId.setAttribute("value", movie.id);
 
-            const addButton = document.createElement("input");
-            addButton.setAttribute("type", "submit");
-            addButton.setAttribute("name", "Submit");
 
             form.appendChild(movieTitle);
             form.append(movieId);
-            form.appendChild(addButton);
 
             movieItem.appendChild(posterImage);
             movieItem.appendChild(title);
             movieItem.appendChild(form);
+
+            movieItem.addEventListener('click', () => {
+                console.log('card clicked!');
+                form.submit();
+            });
 
             displayArea.appendChild(movieItem);
         });
@@ -105,17 +150,21 @@ function fetch_movies(searchQuery, page) {
 
         if (page == 1) {
             previousButton.hidden = true;
+            topPreviousButton.hidden = true;
         }
         else {
             previousButton.hidden = false;
+            topPreviousButton.hidden = false;
         }
 
         if(page < maxPages) {
             nextButton.hidden = false;
+            topNextButton.hidden = false;
         }
 
         if(page === maxPages) {
             nextButton.hidden = true;
+            topNextButton.hidden = true;
         }
     
         console.log(movies);

@@ -33,6 +33,10 @@ html, body {
     color: var(--text-color-light);
 }
 
+#page-indicator {
+    color: #E5E5E5;
+}
+
 #search-bar {
     border-width: 0;
     border-radius: 50px; 
@@ -56,6 +60,10 @@ html, body {
 .card:hover {
     transform: scale(1.05);
     cursor: pointer;
+}
+
+.card-title {
+    color: var(--text-color-light) !important;
 }
 
 #search-button {
@@ -107,6 +115,22 @@ div.form-check.form-check-inline.form-switch.ml-5 {
     z-index: 1;
 }
 
+#next-button, #previous-button, #top-next-button, #top-previous-button {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#next-button:hover, #previous-button:hover, #top-next-button:hover, #top-previous-button:hover {
+    color: var(--text-color-dark);
+    background-color: var(--text-color-light);
+    border-color: var(--text-color-light);
+}
+
+#noResultsFound {
+    color: var(--text-color-light);
+}
+
+/* <= 480px */
 @media only screen and (max-width: 480px) {
     
     #logoImage {
@@ -119,6 +143,7 @@ div.form-check.form-check-inline.form-switch.ml-5 {
     
 }
 
+/* <= 768px */
 @media only screen and (max-width: 768px) {
 
     #search-bar {

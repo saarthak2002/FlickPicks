@@ -132,3 +132,19 @@
     border-color: var(--text-color-light);
     color: #000000;
 }
+
+/* <= 768px */
+@media only screen and (max-width: 768px) {
+    /* Make sure the background poster covers the whole screen */
+    body {
+        height: auto;
+    }
+}
+
+/* >= 768px */
+@media only screen and (min-width: 768px) {
+    /* Make sure the background poster covers the whole screen */
+    body {
+        height: 100vh;
+    }
+}
