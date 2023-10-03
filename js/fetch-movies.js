@@ -12,6 +12,7 @@ let page = 1;
 let maxPages = 1;
 let searchQuery = '';
 
+// On clicking search button
 searchButton.addEventListener('click', (event) => {
     event.preventDefault();
     searchQuery = searchBar.value;
@@ -19,6 +20,7 @@ searchButton.addEventListener('click', (event) => {
     fetch_movies(searchQuery, page);
 });
 
+// Page buttons - top and bottom
 nextButton.addEventListener('click', (event) => {
     page = page + 1;
     pageIndicator.textContent = `${page}/${maxPages}`;
@@ -57,7 +59,7 @@ function truncateTitle(title) {
 }
 
 function fetch_movies(searchQuery, page) {
-    console.log(adultCheckbox.checked);
+    // API call to TBDM API
     const API_URL = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchQuery)}&include_adult=${encodeURIComponent(adultCheckbox.checked)}&language=en-US&page=${encodeURIComponent(page)}`;
     console.log(API_URL);
     fetch(
@@ -87,8 +89,9 @@ function fetch_movies(searchQuery, page) {
             `;
             pageIndicator.textContent = '';
         }
-        movies.results.forEach(movie => {
+        movies.results.forEach(movie => { // Create a card for each search result
             
+            // Result card
             const movieItem = document.createElement("div");
             movieItem.classList.add('card');
             movieItem.classList.add('mx-auto');
@@ -96,6 +99,7 @@ function fetch_movies(searchQuery, page) {
             movieItem.classList.add('movie-item');
             movieItem.setAttribute("style", "width: 15rem; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background: none;");
             
+            // Card poster image
             const posterImage = document.createElement("img");
             
             if(movie.poster_path === null) {
@@ -109,14 +113,15 @@ function fetch_movies(searchQuery, page) {
 
             posterImage.classList.add("class", "card-img-top");
     
-            
+            // Card Title
             const title = document.createElement("h5");
             title.classList.add('card-title');
             title.classList.add('text-center');
             title.textContent = truncateTitle(movie.original_title);
     
+            // Card form - submit on click on card body
             const form = document.createElement("form");
-            form.setAttribute("action", "form-handler.php");
+            form.setAttribute("action", "php/form-handler.php");
             form.setAttribute("method", "POST");
     
             const movieTitle = document.createElement("input");
@@ -148,6 +153,7 @@ function fetch_movies(searchQuery, page) {
         console.log(page);
         console.log(maxPages);
 
+        // Logic to show/hide page buttons
         if (page == 1) {
             previousButton.hidden = true;
             topPreviousButton.hidden = true;

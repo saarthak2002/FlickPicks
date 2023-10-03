@@ -32,7 +32,7 @@
             $posterImagePath = "https://image.tmdb.org/t/p/original$poster";
         }
         else {
-            $posterImagePath = "resources/default-card-image.png";
+            $posterImagePath = "../resources/default-card-image.png";
         }
 
         $tagline = $responseArray['tagline'];
@@ -52,8 +52,8 @@
 
                 echo "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN\" crossorigin=\"anonymous\">";
 
-                echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/main.css\">";
-                echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/movieInfo.css\">";
+                echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../styles/main.css\">";
+                echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../styles/movieInfo.css\">";
     
                 echo "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">";
                 echo "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>";
@@ -68,7 +68,7 @@
 
                                 // Back Button
                                 echo "<div id=\"back-button\">";   
-                                    echo "<a href=\"./\">";
+                                    echo "<a href=\"../index.html\">";
                                         echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-arrow-left-circle-fill\" viewBox=\"0 0 16 16\">";
                                             echo "<path d=\"M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z\"/>";
                                         echo "</svg>";
@@ -81,7 +81,6 @@
 
                                 // Add Button
                                 echo "<form class=\"text-center mt-1\">";
-                                    // echo "<input class=\"btn btn-primary\" id=\"add-button\" value=\"+ Add\" type=\"submit\" />";
                                     echo "<button type=\"button\" id=\"add-button\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">";
                                         echo "+ Add";
                                     echo "</button>";
@@ -139,7 +138,7 @@
                                 echo "<div class=\"d-md-flex mb-2\">";
 
                                     // Website Link
-                                    if(isset($responseArray['homepage'])) {
+                                    if(isset($responseArray['homepage']) && $responseArray['homepage'] != "") {
                                         $homepage = $responseArray['homepage'];
                                         echo "<a class=\"info-link\" href=\"$homepage\" target=\"_blank\">Website</a>";
                                     }
