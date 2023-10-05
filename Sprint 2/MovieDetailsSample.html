@@ -1,0 +1,104 @@
+<!-- Note: This HTML is a mockup of what a movie details page will look like. In the final build, these pages will be generated dynamically using PHP. -->
+<!DOCTYPE html>
+<html lang="en-us">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="author" content="Saarthak Gupta">
+      <meta name="description" content="A platform to find and share the movies you love with the people you love.">
+      <meta name="keywords" content="Movies, Films, Search, Reviews, Ratings">
+      <title>Avatar</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="styles/main.css">
+      <link rel="stylesheet" type="text/css" href="styles/movieInfo.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+   </head>
+   <body style="background-image: url('https://image.tmdb.org/t/p/original//vL5LR6WdxWPjLPFRLe133jXWsh5.jpg'); background-size: cover;">
+      <div class="container py-5 outer-container">
+         <div class="container\ py-5 px-5 inner-container">
+            <div class="row">
+               <div class="col-md-3">
+                  <div id="back-button">
+                     <a href="./">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                           <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        </svg>
+                        Back
+                     </a>
+                  </div>
+                  <img id="poster-img" src="https://image.tmdb.org/t/p/original/kyeqWdyUXW608qlYkRqosgbbJyK.jpg" alt="Avatar poster"/>
+                  <form class="text-center mt-1"><button type="button" id="add-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add</button></form>
+               </div>
+               <div class="col-md-9">
+                  <div class="d-md-flex justify-content-md-between align-items-center">
+                     <div>
+                        <h2 class="mt-2" id="movie-title">Avatar</h2>
+                        <p id="tagline" class="font-italic">Enter the world of Pandora.</p>
+                     </div>
+                     <div class="rating-container">
+                        <span id="starContainer">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="margin-right: 10px;">
+                              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                           </svg>
+                           <span id="ratingNumber" class="align-middle" style="font-size: 25px;">7.6</span>
+                        </span>
+                     </div>
+                  </div>
+                  <span class="badge badge-pill genre-pill">Action</span><span class="badge badge-pill genre-pill">Adventure</span><span class="badge badge-pill genre-pill">Fantasy</span><span class="badge badge-pill genre-pill">Science Fiction</span>
+                  <p id="overview-paragraph" class="pt-1 lead">In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.</p>
+                  <div class="d-md-flex mb-2"><a class="info-link" href="https://www.avatar.com/movies/avatar" target="_blank">Website</a><a class="info-link" href="https://www.imdb.com/title/tt0499549/" target="_blank">IMDb</a></div>
+                  <div class="d-md-flex justify-content-md-around">
+                     <div class="pt-1 info-text">162 minutes</div>
+                     <div class="pt-1 info-text">Released on 15 Dec, 2009</div>
+                     <div class="pt-1 info-text">English</div>
+                     <div class="pt-1 info-text">Spanish</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Your FlickPicks</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <form action="add-movie.php" method="post">
+                  <div class="modal-body">
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flick_pick_id" value="Option 1" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                        Default radio
+                        </label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flick_pick_id" value="Option 2" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                        Default checked radio
+                        </label>
+                     </div>
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flick_pick_id" value="Option 3" id="flexRadioDefault3">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                        Default checked radio 3
+                        </label>
+                     </div>
+                     <input type="hidden" name="movie_id" value="19995">
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                     Close
+                     </button>
+                     <button id="modal-save-button" type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+   </body>
+</html>

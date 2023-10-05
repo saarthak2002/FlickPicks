@@ -6,13 +6,18 @@
 }
 
 html {
-    background-color: var(--background-color);
+    background-color: var(--highlight-color);
 }
 
 section {
-    background-image: url('../resources/film-bg.png');
+    background: var(--highlight-color);
+    background-image: url("../resources/film-bg.png");
+    background-image: url("../resources/film-bg.png"), linear-gradient(225deg, hsla(37, 98%, 53%, 1) 0%, hsla(62, 76%, 64%, 1) 100%);
     background-size: cover;
-    background-color: var(--highlight-color);
+}
+
+section > div.container {
+    overflow: scroll;
 }
 
 .card {
@@ -25,6 +30,24 @@ section {
 
 #auth-other-link:hover {
     color: var(--text-color-light);
+}
+
+#firstNameDiv {
+    margin-right: 5px;
+}
+
+#lastNameDiv {
+    margin-left: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    #firstNameDiv {
+        margin-right: 0;
+    }
+
+    #lastNameDiv {
+        margin-left: 0;
+    }
 }
 
 @media only screen and (max-width: 480px) {
