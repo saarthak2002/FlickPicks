@@ -10,13 +10,21 @@
         echo "connected to db";
     }
 
-    $res = $db->query("DROP TABLE IF EXISTS users;");
-    $res = $db->query("CREATE TABLE users (
+    // $res = $db->query("DROP TABLE IF EXISTS users;");
+    // $res = $db->query("CREATE TABLE users (
+    //     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    //     firstname text,
+    //     lastname text,
+    //     email text,
+    //     password text
+    // );");
+
+    $res = $db->query("DROP TABLE IF EXISTS flickpicks;");
+    $res = $db->query("CREATE TABLE flickpicks (
         id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        firstname text,
-        lastname text,
-        email text,
-        password text
+        user_id int,
+        title text,
+        description text
     );");
     
     $db->close();

@@ -54,20 +54,36 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.mbari.org/" target="_blank">Search</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.mbari.org/" target="_blank">My Picks</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.noaa.gov/" target="_blank">Polls</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://oceana.org/resources/ways-to-give/" target="_blank">Profile</a>
-                            </li>
-                        </ul>
+
+                        <?php if(isset($_SESSION['user_id'])) { ?>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php">Search</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="mypicks.php">My Picks</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://www.noaa.gov/">Polls</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://oceana.org/resources/ways-to-give/">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout.php">Logout</a>
+                                </li>
+                            </ul>
+                        <?php } ?>
+                        <?php if(!isset($_SESSION['user_id'])) { ?>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="login.php">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="signup.php">Signup</a>
+                                </li>
+                            </ul>
+                        <?php } ?>
                     </div>
                 </nav>
             </header>
