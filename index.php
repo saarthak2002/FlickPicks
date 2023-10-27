@@ -2,6 +2,7 @@
 
 <?php
     session_start();
+    $alert = '';
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +32,24 @@
     </head>
     
     <body>
-        
+
+        <?php
+            if(isset($_GET['success'])) {
+                if($_GET['success'] == 1) {
+                    $alert = 'Movie added to FlickPick';
+                }
+                
+            }
+        ?>
+
+        <?php
+            if (!empty($alert)) {
+        ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> <?= $alert?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>  
+        <?php } ?>
         <div class="container">
 
             <?php
@@ -149,6 +167,8 @@
                     </svg>
                 </a>
             </div>
+
+            
 
         </div>
         

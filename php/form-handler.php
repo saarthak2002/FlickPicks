@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    include('../Database.php');
+    $db = new DatabaseConnection();
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Read request parameters
@@ -68,7 +72,7 @@
 
                                 // Back Button
                                 echo "<div id=\"back-button\">";   
-                                    echo "<a href=\"../index.html\">";
+                                    echo "<a href=\"../index.php\">";
                                         echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-arrow-left-circle-fill\" viewBox=\"0 0 16 16\">";
                                             echo "<path d=\"M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z\"/>";
                                         echo "</svg>";
@@ -79,12 +83,14 @@
                                 // Movie Poster
                                 echo "<img id=\"poster-img\" src=\"$posterImagePath\" alt=\"$search poster\"/>";
 
-                                // Add Button
-                                echo "<form class=\"text-center mt-1\">";
-                                    echo "<button type=\"button\" id=\"add-button\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">";
-                                        echo "+ Add";
-                                    echo "</button>";
-                                echo "</form>";
+                                // Add Button - display only if user is logged in
+                                if(isset($_SESSION['user_id'])) {
+                                    echo "<form class=\"text-center mt-1\">";
+                                        echo "<button type=\"button\" id=\"add-button\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">";
+                                            echo "+ Add";
+                                        echo "</button>";
+                                    echo "</form>";
+                                }
 
                             echo "</div>";
 
@@ -186,6 +192,7 @@
                     echo "</div>";
                 echo "</div>";
                 // replace with for loop
+
                 echo "<div class=\"modal top fade\" id=\"exampleModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\" data-bs-backdrop=\"true\" data-bs-keyboard=\"true\">
                     <div class=\"modal-dialog\">
                         <div class=\"modal-content\">
@@ -194,35 +201,45 @@
                                 <button type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
                             </div>
                             <form action=\"add-movie.php\" method=\"post\">
-                                <div class=\"modal-body\">
-                                    
-                                    <div class=\"form-check\">
-                                        <input class=\"form-check-input\" type=\"radio\" name=\"flick_pick_id\" value=\"Option 1\" id=\"flexRadioDefault1\">
-                                        <label class=\"form-check-label\" for=\"flexRadioDefault1\">
-                                            Default radio
-                                        </label>
-                                    </div>
-                                    <div class=\"form-check\">
-                                        <input class=\"form-check-input\" type=\"radio\" name=\"flick_pick_id\" value=\"Option 2\" id=\"flexRadioDefault2\">
-                                        <label class=\"form-check-label\" for=\"flexRadioDefault2\">
-                                            Default checked radio
-                                        </label>
-                                    </div>
-                                    <div class=\"form-check\">
-                                        <input class=\"form-check-input\" type=\"radio\" name=\"flick_pick_id\" value=\"Option 3\" id=\"flexRadioDefault3\">
-                                        <label class=\"form-check-label\" for=\"flexRadioDefault3\">
-                                            Default checked radio 3
-                                        </label>
-                                    </div>
+                                <div class=\"modal-body\">";
 
-                                    <input type=\"hidden\" name=\"movie_id\" value=\"$movie_id\">
-                                </div>
+                                    // display all the flickpicks the user has in the Modal
+                                    if(isset($_SESSION['user_id'])) {
+                                        $result = $db->query(
+                                            "select * from flickpicks where user_id = $1;", 
+                                            $_SESSION['user_id']
+                                        );
+                                        if(!empty($result)) {
+                                            foreach($result as $flickpick) {
+                                                echo "<div class=\"form-check\">";
+                                                    echo "<input class=\"form-check-input\" type=\"radio\" name=\"flick_pick_id\" value=\"{$flickpick['id']}\" id=\"flexRadioDefault{$flickpick['id']}\">";
+                                                    echo "<label class=\"form-check-label\" for=\"flexRadioDefault{$flickpick['id']}\">";
+                                                        echo $flickpick['title'];
+                                                    echo "</label>";
+                                                echo "</div>";
+                                            }
+                                        } 
+                                        else {
+                                            echo "<div class=\"text-center\">";
+                                                echo "<h2 style=\"color: #e5e5e5;\">You have no FlickPicks</h2>";
+                                                echo "<h6 style=\"color: #e5e5e5;\"><a id=\"createOneNowLink\" href=\"../mypicks.php\">Create one now</a></h6>";
+                                            echo "</div>";
+                                        }
+                                    }
+
+                                    // Hidden form fields are used to send movie id, title, and poster to add to database
+                                    echo "<input type=\"hidden\" name=\"movie_id\" value=\"$movie_id\">";
+                                    echo "<input type=\"hidden\" name=\"movie_title\" value=\"$search\">";
+                                    echo "<input type=\"hidden\" name=\"movie_poster\" value=\"$posterImagePath\">";
+                                echo "</div>
                                 <div class=\"modal-footer\">
                                     <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">
                                         Close
-                                    </button>
-                                    <button id=\"modal-save-button\" type=\"submit\" class=\"btn btn-primary\">Save changes</button>
-                                </div>
+                                    </button>";
+                                    if(!empty($result)){
+                                        echo "<button id=\"modal-save-button\" type=\"submit\" class=\"btn btn-primary\">Save changes</button>";
+                                    }
+                                echo "</div>
                             </form>
                         </div>
                     </div>

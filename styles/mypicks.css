@@ -10,3 +10,19 @@
     color: var(--text-color-dark);
     border-color: var(--text-color-dark);
 }
+
+#view-button.btn.btn-primary {
+    border-radius: 1.9rem;
+    background-color: var(--text-color-dark);
+    border-color: var(--text-color-dark);
+}
+
+#view-button.btn.btn-primary:hover {
+    background-color: var(--text-color-light);
+    color: var(--text-color-dark);
+    border-color: var(--text-color-dark);
+}
+
+.card-title {
+    color: black !important;
+}

@@ -136,13 +136,49 @@
                     
                 </div>
 
-                <?php
-                    $result = $db->query(
-                        "select * from flickpicks where user_id = $1;", 
-                        $_SESSION['user_id']
-                    );
-                    print_r($result);
-                ?>
+                <div id="my-picks" class="d-flex flex-wrap">
+                    <?php
+                        $result = $db->query(
+                            "select * from flickpicks where user_id = $1;", 
+                            $_SESSION['user_id']
+                        );
+                        if(!empty($result)) {
+                            foreach($result as $flickpick) {
+                                $res = $db->query(
+                                    "select * from users where id = $1",
+                                    $flickpick['user_id']
+                                );
+                    ?>
+                                <div class="card d-flex flex-column rounded-5 px-5 py-5 mx-auto my-3 pick-item" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background: #E5E5E5;">
+                                    <h5 class="card-title"><?= $flickpick['title']?></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?= "By " . $res[0]['firstname'] . " " . $res[0]['lastname']?></h6>
+                                    <p class="card-text"><?= $flickpick['description']?></p>
+                                    <!-- <p><?= $flickpick['id']?><p> -->
+                                    
+                                    <form class="mt-auto text-center">
+                                        <input class="btn btn-primary mt-auto" id="view-button" type="submit" value="View FlickPick">
+                                        <input type="hidden" value="<?= $flickpick['id']?>">
+                                    </form>
+                                </div>
+
+                    <?php 
+                            }
+                        }
+                    ?>
+
+                    <?php
+                        if(empty($result)) {
+                    ?>
+                            
+                            <div id="noResultsFound" class="mx-auto text-center">
+                                <h2>
+                                    You have not created any FlickPicks
+                                </h2>
+                                <h6 class="" style="color: #e5e5e5; font-weight: 200;">Create one now to share the movies you love with the people you love</h6>
+                            </div>
+                            
+                    <?php } ?>
+                </div>
 
                 <!-- Create FlickPick Modal -->
                 <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
@@ -175,12 +211,25 @@
                 </div>
                 <!-- Create FlickPick Modal -->
 
+                <!-- <div id="my-picks" class="d-flex flex-wrap">
+                    <div class="card mx-auto my-3 pick-item" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background: #E5E5E5;">
+                        <h5 class="card-title">Card Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Subtitle</h6>
+                        <p class="card-text">Description text goes here. You can make it as long as needed.</p>
+                        
+                    </div>
+   
+                </div> -->
+
             </div>
         <?php } ?>
         
         <?php 
             if(!isset($_SESSION['user_id'])) {
-                echo "forbidden";
+                echo "<h1 style=\"color: white; text-align:center;\">403: Forbidden</h1>";
+                echo "<div class=\"row text-center\">";
+                    echo "<img style=\"width: 30%;\" alt=\"you shall not pass\" src=\"https://64.media.tumblr.com/09fe9fa3ee48703d9f4e1ffa7bdf2ac5/442b319e11a844f2-76/s400x600/c77faf974244d17101b3010cf1d74e72f7243871.gifv\">";
+                echo "</div>";
             }
         ?>
         <!-- Bootstrap CDN JavaScript -->

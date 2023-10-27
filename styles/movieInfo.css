@@ -133,6 +133,14 @@
     color: #000000;
 }
 
+#createOneNowLink {
+    color: var(--highlight-color);
+}
+
+#createOneNowLink:hover {
+    color: var(--text-color-light);
+}
+
 /* <= 768px */
 @media only screen and (max-width: 768px) {
     /* Make sure the background poster covers the whole screen */

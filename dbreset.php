@@ -19,12 +19,21 @@
     //     password text
     // );");
 
-    $res = $db->query("DROP TABLE IF EXISTS flickpicks;");
-    $res = $db->query("CREATE TABLE flickpicks (
+    // $res = $db->query("DROP TABLE IF EXISTS flickpicks;");
+    // $res = $db->query("CREATE TABLE flickpicks (
+    //     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    //     user_id int,
+    //     title text,
+    //     description text
+    // );");
+
+    $res = $db->query("DROP TABLE IF EXISTS flickpicks_contents;");
+    $res = $db->query("CREATE TABLE flickpicks_contents (
         id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        user_id int,
+        flickpick_id int,
+        movie_id int,
         title text,
-        description text
+        poster text
     );");
     
     $db->close();
