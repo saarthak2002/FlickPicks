@@ -25,6 +25,13 @@
     </head>
     
     <body>
+        <?php
+            if(!empty($error_message)) {
+                echo "<div style=\"margin: 0;\" class=\"alert alert-danger\" role=\"alert\">";
+                    echo $error_message;
+                echo "</div>";
+            }
+        ?>
         <section class="vh-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -36,7 +43,7 @@
                                         <img id="form-logo" src="./resources/logo.png" alt="FLickPicks logo" />
                                     </div>
                                     <h2 class="mb-2 text-uppercase">Sign Up</h2>
-                                    <form method="post" action="php/signup.php">
+                                    <form method="post" action="?command=signup">
                                         <div class="d-md-flex">
                                             <div id="firstNameDiv" class="form-outline form-white mb-4">
                                                 <input type="text" id="firstName" class="form-control form-control-lg" required placeholder="First name" name="firstName" />
@@ -55,7 +62,7 @@
                                         <div class="form-outline form-white mb-4">
                                             <input type="password" id="confirm-password" class="form-control form-control-lg" required placeholder="Confirm Password" />
                                         </div>
-                                        <p class="small mb-5 pb-lg-2">Already have an account? <a href="./login.html" id="auth-other-link" class="fw-bold">Login</a></p>
+                                        <p class="small mb-5 pb-lg-2">Already have an account? <a href="login.php" id="auth-other-link" class="fw-bold">Login</a></p>
                                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
                                     </form>
                                 </div>

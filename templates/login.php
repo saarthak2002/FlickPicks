@@ -25,6 +25,13 @@
     </head>
     
     <body>
+        <?php
+            if(!empty($error_message)) {
+                echo "<div style=\"margin: 0;\" class=\"alert alert-danger\" role=\"alert\">";
+                    echo $error_message;
+                echo "</div>";
+            }
+        ?>
         <section class="vh-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -39,14 +46,14 @@
                                     <h2 class="mb-2 text-uppercase">Login</h2>
 
                                     <!-- Login Form -->
-                                    <form method="post" action="php/login.php">
+                                    <form method="post" action="?command=login">
                                         <div class="form-outline form-white mb-4">
-                                            <input type="email" id="typeEmailX" class="form-control form-control-lg" required placeholder="Email" />
+                                            <input type="email" id="typeEmailX" class="form-control form-control-lg" required placeholder="Email" name="email" />
                                         </div>
                                         <div class="form-outline form-white mb-4">
-                                            <input type="password" id="typePasswordX" class="form-control form-control-lg" required placeholder="Password" />
+                                            <input type="password" id="typePasswordX" class="form-control form-control-lg" required placeholder="Password" name="password" />
                                         </div>
-                                        <p class="small mb-5 pb-lg-2">Don't have an account? <a href="./signup.html" id="auth-other-link" class="fw-bold">Sign Up</a></p>
+                                        <p class="small mb-5 pb-lg-2">Don't have an account? <a href="./signup.php" id="auth-other-link" class="fw-bold">Sign Up</a></p>
                                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                                     </form>
                                 </div>
