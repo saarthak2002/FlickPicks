@@ -38,7 +38,15 @@
                 if($_GET['success'] == 1) {
                     $alert = 'Movie added to FlickPick';
                 }
-                
+                if($_GET['success'] == 2) {
+                    $alert = 'Movie already added to FlickPick';
+                }
+                if($_GET['success'] == 3) {
+                    $alert = 'Deleted movie from FlickPick';
+                }
+                if($_GET['success'] == 4) {
+                    $alert = 'Movie does not exist in FlickPick';
+                }
             }
         ?>
 

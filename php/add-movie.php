@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('../Database.php');
+    
     function addMovieToFlickPick($flick_pick_id, $movie_id, $movie_title, $movie_poster) {
         $db = new DatabaseConnection();
 
@@ -11,12 +12,18 @@
         );
 
         if(empty($check_existing)) {
+            
             $db->query("insert into flickpicks_contents (flickpick_id, movie_id, title, poster) values ($1, $2, $3, $4);", 
                         $flick_pick_id, 
                         $movie_id, 
                         $movie_title,
                         $movie_poster
             );
+
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
@@ -29,12 +36,18 @@
             $movie_id = $_POST['movie_id'];
             $movie_title = $_POST['movie_title'];
             $movie_poster = $_POST['movie_poster'];
-            addMovieToFlickPick($flick_pick_id, $movie_id, $movie_title, $movie_poster);
+            
+            $ret = addMovieToFlickPick($flick_pick_id, $movie_id, $movie_title, $movie_poster);
+            if($ret) {
+                header("Location: ../index.php?success=1");
+            }
+            else {
+                header("Location: ../index.php?success=2");
+            }
         }
-    
-        // echo "add movie with id $movie_id to FlickPick with id $flick_pick_id name: $movie_title poster: $movie_poster";
-        header('Location: ../index.php?success=1');
+        else {
+            header('Location: ../error.php');
+        }
     }   
 
-    
 ?>

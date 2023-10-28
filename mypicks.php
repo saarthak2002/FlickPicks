@@ -155,9 +155,9 @@
                                     <p class="card-text"><?= $flickpick['description']?></p>
                                     <!-- <p><?= $flickpick['id']?><p> -->
                                     
-                                    <form class="mt-auto text-center">
+                                    <form class="mt-auto text-center" action="flickpickdetails.php" method="post">
                                         <input class="btn btn-primary mt-auto" id="view-button" type="submit" value="View FlickPick">
-                                        <input type="hidden" value="<?= $flickpick['id']?>">
+                                        <input type="hidden" name="flick_pick_id" value="<?= $flickpick['id']?>">
                                     </form>
                                 </div>
 
