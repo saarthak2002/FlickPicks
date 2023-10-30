@@ -6,6 +6,7 @@
 
     $error_message = '';
 
+    // fetch all the movies in a flickpick from the database
     function fetchFlickPickMovies($flick_pick_id) {
         $db = new DatabaseConnection();
         $res = $db->query(
@@ -15,6 +16,7 @@
         return $res;
     }
 
+    // get the information about a flickpick from the database
     function fetchFlickPickDetails($flick_pick_id) {
         $db = new DatabaseConnection();
         $res = $db->query(
@@ -104,7 +106,7 @@
                     </nav>
                 </header>
 
-                
+                <!-- flickpick title and add movie button -->
                 <div class="sticky-top my-5 find-films-header" style="top: 0;">
                                 
                     <div class="d-md-flex justify-content-between align-items-center">
@@ -115,23 +117,38 @@
                         <a class="btn btn-primary" id="add-movie-button" href="index.php">+ Add Movie</a>
                     </div>
                 </div>
+
+                <!-- Flick pick contents display -->
                 <div class="container mb-5">
                     <div class="row" id="movie-list">
-                        <!-- Movie rows will be dynamically added here -->
+                        <!-- Movie rows are dynamically added here -->
                         <?php
-                            $flick_pick_movies = fetchFlickPickMovies($flick_pick_id);
+                            $flick_pick_movies = fetchFlickPickMovies($flick_pick_id); // get all the movies from the database
                             if(!empty($flick_pick_movies)) {
                                 foreach($flick_pick_movies as $movie) {
                                     $flickpicks_contents_id = $movie['id'];
+
                                     echo "<div class=\"col-12 justify-content-between movie-row\">";
+
+                                        // movie poster and title
                                         echo "<div class=\"movie-row-item\">";
-                                            echo "<img src=\"{$movie['poster']}\" alt=\"yes\" class=\"movie-image\">";
+                                            
+                                            if($movie['poster'] === '../resources/default-card-image.png') {
+                                                echo "<img src=\"resources/default-card-image.png\" alt=\"{$movie['title']} poster\" class=\"movie-image\">";
+                                            }
+                                            else {
+                                                echo "<img src=\"{$movie['poster']}\" alt=\"{$movie['title']} poster\" class=\"movie-image\">";
+                                            }
+                                            
                                             echo "<h3 style=\"color: #e5e5e5;\">{$movie['title']}</h3>";
                                         echo "</div>";
+
+                                        // Row buttons
                                         echo "<div class=\"movie-row-item-btn\">";
                                             // Info button 
                                             echo "<form action=\"php/form-handler.php\" method=\"post\" style=\"margin-right: 5px;\">";
                                                 
+                                                // hidden form fields to maintain state of info page
                                                 echo "<input type=\"hidden\" name=\"search\" value=\"{$movie['title']}\">";
                                                 echo "<input type=\"hidden\" name=\"id\" value=\"{$movie['movie_id']}\">";
                                                     
@@ -147,6 +164,7 @@
                                             // Delete Button
                                             echo "<form action=\"php/delete-movie.php\" method=\"post\" style=\"margin-left: 5px;\">";
 
+                                                // hidden form field to pass info about which movie to delete
                                                 echo "<input type=\"hidden\" name=\"flickpicks_contents_id\" value=\"$flickpicks_contents_id\">";
 
                                                 echo "<button type=\"submit\" class=\"btn btn-outline-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Delete\">";
@@ -159,11 +177,12 @@
                                             echo "</form>";
 
                                         echo "</div>";
+
                                     echo "</div>";
                                     
                                 }
                             }
-                            else {
+                            else { // if there are no movies added yet, display an appropriate message
                                 echo "<div id=\"noResultsFound\" class=\"mx-auto text-center\">";
                                     echo "<h2>";
                                         echo "You have not added any movies to this FlickPick";
@@ -178,6 +197,7 @@
             </div>
         <?php } ?>
         
+        <!-- Display error if user is not logged in or invalid post data -->
         <?php 
             if(!isset($_SESSION['user_id']) || !isset($_POST['flick_pick_id'])) {
                 echo "<h1 style=\"color: white; text-align:center;\">403: Forbidden</h1>";
@@ -186,9 +206,11 @@
                 echo "</div>";
             }
         ?>
+        
         <!-- Bootstrap CDN JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         
+        <!-- Script to activate bootstrap tooltips -->
         <script type="text/javascript">
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()

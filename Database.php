@@ -6,6 +6,7 @@
         private $db_manager;
         private $db_fault;
 
+        // Read database credentails from config file and establish connection
         function __construct() {
             $this->db_fault = false;
             $host = Config::$database_connection["host"];
@@ -22,6 +23,7 @@
             }
         }
 
+        // Execute query on DB and return results as an an array
         public function query($query, ...$params) {
             $result = pg_query_params($this->db_manager, $query, $params);
 
@@ -33,10 +35,12 @@
             return pg_fetch_all($result);
         }
 
+        // Returns true if there was an error connecting to the DB
         public function dbError() {
             return $this->db_fault;
         }
 
+        // Close database connection
         public function close() {
             pg_close($this->db_manager);
         }
