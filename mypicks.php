@@ -15,6 +15,7 @@
     }
 
     else {
+        // If the user submits the add flickpick form in the modal
         if(isset($_GET['command']) && isset($_SESSION['user_id'])) { // if the user submits the form and a user is logged in
             $command = $_GET['command'];
             if($command === 'add') {
@@ -26,13 +27,14 @@
                     $title = $_POST['title'];
                     $description = $_POST['description'];
 
+                    // insert into the database the new flickpick
                     $db->query(
                         "insert into flickpicks (user_id, title, description) values ($1, $2, $3);", 
                         $user_id, 
                         $title, 
                         $description
                     );
-                    header("Location: mypicks.php");
+                    header("Location: mypicks.php"); // redirect the user to the same page
                 }
             }
         }
@@ -71,20 +73,10 @@
         <?php if(isset($_SESSION['user_id'])) { ?>
             <div class="container">
 
-                <?php
-                    if(isset($_SESSION['user_id'])) {
-                        echo "you are logged in as:";
-                        echo $_SESSION['user_id'];
-                    }
-                    else {
-                        echo "you are not logged in";
-                    }
-                ?>
-
                 <!-- Nav Bar -->
                 <header>
                     <nav class="navbar navbar-expand-lg navbar-dark mb-5">
-                        <a class="navbar-brand" href="./index.html">
+                        <a class="navbar-brand" href="./index.php">
                             <img id="logoImage" src="./resources/logo.png" alt="FlickPicks Logo" />
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,6 +128,7 @@
                     
                 </div>
 
+                <!-- Query the database for all flickpicks the user has created and display them -->
                 <div id="my-picks" class="d-flex flex-wrap">
                     <?php
                         $result = $db->query(
@@ -150,11 +143,12 @@
                                 );
                     ?>
                                 <div class="card d-flex flex-column rounded-5 px-5 py-5 mx-auto my-3 pick-item" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background: #E5E5E5;">
+                                    <!-- flickpick details -->
                                     <h5 class="card-title"><?= $flickpick['title']?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= "By " . $res[0]['firstname'] . " " . $res[0]['lastname']?></h6>
                                     <p class="card-text"><?= $flickpick['description']?></p>
-                                    <!-- <p><?= $flickpick['id']?><p> -->
                                     
+                                    <!-- View Button -->
                                     <form class="mt-auto text-center" action="flickpickdetails.php" method="post">
                                         <input class="btn btn-primary mt-auto" id="view-button" type="submit" value="View FlickPick">
                                         <input type="hidden" name="flick_pick_id" value="<?= $flickpick['id']?>">
@@ -166,6 +160,7 @@
                         }
                     ?>
 
+                    <!-- If there are no flickpicks, display a message -->
                     <?php
                         if(empty($result)) {
                     ?>
@@ -211,19 +206,10 @@
                 </div>
                 <!-- Create FlickPick Modal -->
 
-                <!-- <div id="my-picks" class="d-flex flex-wrap">
-                    <div class="card mx-auto my-3 pick-item" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background: #E5E5E5;">
-                        <h5 class="card-title">Card Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Subtitle</h6>
-                        <p class="card-text">Description text goes here. You can make it as long as needed.</p>
-                        
-                    </div>
-   
-                </div> -->
-
             </div>
         <?php } ?>
         
+        <!-- Display an error if the user is not logged in -->
         <?php 
             if(!isset($_SESSION['user_id'])) {
                 echo "<h1 style=\"color: white; text-align:center;\">403: Forbidden</h1>";

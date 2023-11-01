@@ -1,3 +1,4 @@
+import TBDM_API_KEY from './config.js';
 
 const searchBar = document.getElementById('search-bar');
 const searchButton = document.getElementById('search-button');
@@ -67,7 +68,7 @@ function fetch_movies(searchQuery, page) {
         {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZmQzZWExYzVlOGJiM2FkZWQxYzE4MmFlNGJmZGQ3NCIsInN1YiI6IjY0ZWI2OWMzMDZmOTg0MDEyZDczODJmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H5Lrsay_TU4mRJ_AZM-1YL5H_e_N6-RfmESQldSxF2o',
+                'Authorization': `Bearer ${TBDM_API_KEY}`,
             },    
         }
     )

@@ -37,6 +37,17 @@
     border-color: var(--text-color-dark);
 }
 
+/* #info-button.btn.btn-primary {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#info-button.btn.btn-primary:hover {
+    background-color: var(--text-color-light);
+    color: var(--text-color-dark);
+    border-color: var(--text-color-dark);
+} */
+
 .row-btn {
     color: #e5e5e5;
     width: 20px;

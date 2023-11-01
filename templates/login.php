@@ -25,6 +25,7 @@
     </head>
     
     <body>
+        <!-- banner to display errors -->
         <?php
             if(!empty($error_message)) {
                 echo "<div style=\"margin: 0;\" class=\"alert alert-danger\" role=\"alert\">";

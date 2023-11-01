@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('../Database.php');
+    require_once("../Config.php");
     $db = new DatabaseConnection();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -9,12 +10,13 @@
         $search = $_POST['search'];
         $movie_id = $_POST['id'];
         $API_URL = "https://api.themoviedb.org/3/movie/$movie_id";
-
+        $api_key = Config::$tmdb_api["apikey"];
+        
         // Make API call to TBDM API
         $curl = curl_init($API_URL);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZmQzZWExYzVlOGJiM2FkZWQxYzE4MmFlNGJmZGQ3NCIsInN1YiI6IjY0ZWI2OWMzMDZmOTg0MDEyZDczODJmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H5Lrsay_TU4mRJ_AZM-1YL5H_e_N6-RfmESQldSxF2o',
+            "Authorization: Bearer $api_key",
             'accept: application/json'
         ]);
         $response = curl_exec($curl);

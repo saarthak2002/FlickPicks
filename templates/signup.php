@@ -25,6 +25,7 @@
     </head>
     
     <body>
+        <!-- banner to display errors -->
         <?php
             if(!empty($error_message)) {
                 echo "<div style=\"margin: 0;\" class=\"alert alert-danger\" role=\"alert\">";
@@ -42,6 +43,7 @@
                                     <div class="mx-auto mb-md-2">
                                         <img id="form-logo" src="./resources/logo.png" alt="FLickPicks logo" />
                                     </div>
+                                    <!-- Signup form -->
                                     <h2 class="mb-2 text-uppercase">Sign Up</h2>
                                     <form method="post" action="?command=signup">
                                         <div class="d-md-flex">
