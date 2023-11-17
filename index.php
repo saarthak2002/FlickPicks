@@ -81,7 +81,7 @@
                                     <a class="nav-link" href="mypicks.php">My Picks</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://www.noaa.gov/">Polls</a>
+                                    <a class="nav-link" href="blog.php">Blog</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="https://oceana.org/resources/ways-to-give/">Profile</a>

@@ -40,6 +40,7 @@
                             header("Location: index.php");
                         }
                         else { // User did not enter the correct password
+                            $_COOKIE['prefilledEmail'] = $email;
                             $error_message = 'Incorrect password entered';
                         }
                     }

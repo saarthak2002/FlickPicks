@@ -37,6 +37,19 @@
     border-color: var(--text-color-dark);
 }
 
+#share-button.btn.btn-primary {
+    border-radius: 1.9rem;
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#share-button.btn.btn-primary:hover {
+    background-color: var(--text-color-light);
+    color: var(--text-color-dark);
+    border-color: var(--text-color-dark);
+}
+
+
 /* #info-button.btn.btn-primary {
     background-color: var(--highlight-color);
     border-color: var(--highlight-color);

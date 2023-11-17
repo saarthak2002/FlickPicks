@@ -1,10 +1,25 @@
-<!-- Deployed site: https://cs4640.cs.virginia.edu/uzn2up/FlickPicks/ -->
-
 <?php
     session_start();
     include('Database.php');
-
-    $error_message = '';
+    if(isset($_GET['share'])) {
+        $db = new DatabaseConnection();
+        $share_id = $_GET['share'];
+        
+        $check_existing = $db->query(
+            "select * from shareable where share_id = $1;",
+            $share_id
+        );
+        if(empty($check_existing)) {
+            echo "<h1 style=\"color: #e5e5e5; text-align: center;\">This FlickPick is Private or Does Not Exist</h1>";
+            echo "<p style=\"color: #e5e5e5; text-align: center;\">Request the owner to share it to view movies</p>";
+        }
+        else {
+            $flick_pick_id = $check_existing[0]['flickpick_id'];
+        }
+    }
+    else {
+        echo "invalid";
+    }
 
     // fetch all the movies in a flickpick from the database
     function fetchFlickPickMovies($flick_pick_id) {
@@ -25,8 +40,18 @@
         );
         return $res;
     }
-    
+
+    function fetchUserDetails($user_id) {
+        $db = new DatabaseConnection();
+        $res = $db->query(
+            "select * from users where id = $1;",
+            $user_id
+        );
+        return $res;
+    }
 ?>
+
+<!-- Deployed site: https://cs4640.cs.virginia.edu/uzn2up/FlickPicks/ -->
 
 <!DOCTYPE html>
 <html lang="en-us">
@@ -56,58 +81,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
         <script>
-            $('document').ready(function() {
 
-                // share button handler
-                $('#share-button').on('click', function() {
-                    var fp_id = $('#share-flick-pick-id').val();
-                    console.log(fp_id);
-                    $.ajax({
-                        url: 'php/make-shareable.php',
-                        method: 'POST',
-                        data: { flick_pick_id: fp_id },
-                        dataType: 'json',
-                        success: function(response) {
-                            console.log(response);
-                            $('#shareLink').html(`<p>${response.url}</p>`);
-                            $('#shareModal').modal('show');
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    });
-                });
-
-                // stop sharing button handler
-                $('#stop-share-button').on('click', function() {
-                    var fp_id = $('#share-flick-pick-id').val();
-                    console.log(fp_id);
-                    $.ajax({
-                        url: 'php/stop-share.php',
-                        method: 'POST',
-                        data: { flick_pick_id: fp_id },
-                        dataType: 'json',
-                        success: function(response) {
-                            console.log(response);
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    });
-                });
-            });
         </script>
 
     </head>
     
     <body>
         
-        <?php if(isset($_SESSION['user_id']) && isset($_POST['flick_pick_id'])) { ?>
+        <?php if(isset($flick_pick_id)) { ?>
             <div class="container">
-
-                <?php
-                    $flick_pick_id = $_POST['flick_pick_id'];
-                ?>
 
                 <!-- Nav Bar -->
                 <header>
@@ -148,16 +130,10 @@
                     <div class="d-md-flex justify-content-between align-items-center">
                         <?php
                             $flick_pick_details = fetchFlickPickDetails($flick_pick_id);
+                            $user_details = fetchUserDetails($flick_pick_details[0]['user_id']);
                         ?>
                         <h3 class="display-3" id="filmSearchHeading"><?= $flick_pick_details[0]['title']?></h3>
-                        <div>
-                            <a class="btn btn-primary" id="add-movie-button" href="index.php" style="margin-right: 10px;">+ Add Movie</a>
-                            <button class="btn btn-primary" id="share-button">Share</button>
-                            <?php
-                                echo "<input type=\"hidden\" id=\"share-flick-pick-id\" name=\"flick_pick_id\" value=\"{$flick_pick_id}\">";
-                            ?>
-                        </div>
-                        
+                        <h4 style="color: #e5e5e5;">by <?php echo "{$user_details[0]["firstname"]} {$user_details[0]["lastname"]}"; ?> </h4>
                     </div>
                 </div>
 
@@ -203,21 +179,6 @@
                                                 echo "</button>";
                                                     
                                             echo "</form>";
-                                            
-                                            // Delete Button
-                                            echo "<form action=\"php/delete-movie.php\" method=\"post\" style=\"margin-left: 5px;\">";
-
-                                                // hidden form field to pass info about which movie to delete
-                                                echo "<input type=\"hidden\" name=\"flickpicks_contents_id\" value=\"$flickpicks_contents_id\">";
-
-                                                echo "<button type=\"submit\" class=\"btn btn-outline-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Delete\">";
-                                                    echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-trash\" viewBox=\"0 0 16 16\">";
-                                                        echo "<path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z\"></path>";
-                                                        echo "<path d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z\"></path>";
-                                                    echo "</svg>";
-                                                    
-                                                echo "</button>";
-                                            echo "</form>";
 
                                         echo "</div>";
 
@@ -238,40 +199,9 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Share modal -->
-            <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="shareModalLabel">Share FlickPick</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="shareModalBody">
-                            <!-- Response content will be displayed here -->
-                            <p>You can share your FlickPick using this link:</p>
-                            <p id="shareLink"></p>
-                            <button type="button" class="btn btn-danger" id="stop-share-button" data-bs-dismiss="modal">Stop Sharing</button>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
         <?php } ?>
         
-        <!-- Display error if user is not logged in or invalid post data -->
-        <?php 
-            if(!isset($_SESSION['user_id']) || !isset($_POST['flick_pick_id'])) {
-                echo "<h1 style=\"color: white; text-align:center;\">403: Forbidden</h1>";
-                echo "<div class=\"row text-center\">";
-                    echo "<img style=\"width: 30%;\" alt=\"you shall not pass\" src=\"https://64.media.tumblr.com/09fe9fa3ee48703d9f4e1ffa7bdf2ac5/442b319e11a844f2-76/s400x600/c77faf974244d17101b3010cf1d74e72f7243871.gifv\">";
-                echo "</div>";
-            }
-        ?>
         
         <!-- Bootstrap CDN JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

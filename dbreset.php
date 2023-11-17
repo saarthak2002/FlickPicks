@@ -35,6 +35,13 @@
     //     title text,
     //     poster text
     // );");
+
+    $res = $db->query("DROP TABLE IF EXISTS shareable;");
+    $res = $db->query("CREATE TABLE shareable (
+        id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        flickpick_id int,
+        share_id text
+    );");
     
     $db->close();
 ?>
