@@ -65,6 +65,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     </head>
     
@@ -93,7 +95,7 @@
                                         <a class="nav-link" href="mypicks.php">My Picks</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://www.noaa.gov/">Polls</a>
+                                        <a class="nav-link" href="blog.php">Blog</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="https://oceana.org/resources/ways-to-give/">Profile</a>
@@ -188,10 +190,12 @@
                                     <div class="mb-3">
                                         <label for="title" class="form-label">Title</label>
                                         <input type="text" class="form-control" id="title" name="title" required>
+                                        <div id="title-message" class="text-danger"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="description" class="form-label">Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                                        <div id="description-message" class="text-danger"></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -221,6 +225,40 @@
         <!-- Bootstrap CDN JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         
-        
+        <script>
+            var cards = document.querySelectorAll('.card');
+
+            cards.forEach(function(card) {
+                card.addEventListener('mouseover', function() {
+                    this.style.borderWidth = '5px';
+                });
+                card.addEventListener('mouseout', function() {
+                    this.style.borderWidth = '0px';
+                });
+            });
+
+            $("#title").on("input", () => {
+                var message = document.getElementById("title-message");
+                var titleText = $("#title").val();
+                if(titleText.length < 5) {
+                    message.innerHTML = "Title is too short";
+                }
+                else {
+                    message.innerHTML = "";
+                }
+            });
+
+            $("#description").on("input", () => {
+                var message = document.getElementById("description-message");
+                var titleText = $("#description").val();
+                if(titleText.length < 15) {
+                    message.innerHTML = "Description is too short";
+                }
+                else {
+                    message.innerHTML = "";
+                }
+            });
+        </script>
+
     </body>
 </html>

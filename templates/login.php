@@ -50,6 +50,7 @@
                                     <form method="post" action="?command=login">
                                         <div class="form-outline form-white mb-4">
                                             <input type="email" id="typeEmailX" class="form-control form-control-lg" required placeholder="Email" name="email" />
+                                            <div id="email-format-message" class="text-danger"></div>
                                         </div>
                                         <div class="form-outline form-white mb-4">
                                             <input type="password" id="typePasswordX" class="form-control form-control-lg" required placeholder="Password" name="password" />
@@ -66,5 +67,22 @@
         </section>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        <script>
+            // client side input validation
+            function checkEmailFormat() {
+                var email = document.getElementById('typeEmailX').value;
+                var emailFormatMessage = document.getElementById('email-format-message');
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!emailRegex.test(email)) {
+                    emailFormatMessage.innerHTML = 'Enter a valid email address';
+                } else {
+                    emailFormatMessage.innerHTML = '';
+                }
+            }
+
+            document.getElementById('typeEmailX').addEventListener('input', checkEmailFormat);
+        </script>
     </body>
 </html>

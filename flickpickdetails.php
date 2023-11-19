@@ -58,7 +58,7 @@
         <script>
             $('document').ready(function() {
 
-                // share button handler
+                // share button handler - generate link to share FlickPick
                 $('#share-button').on('click', function() {
                     var fp_id = $('#share-flick-pick-id').val();
                     console.log(fp_id);
@@ -69,7 +69,7 @@
                         dataType: 'json',
                         success: function(response) {
                             console.log(response);
-                            $('#shareLink').html(`<p>${response.url}</p>`);
+                            $('#shareLink').html(`<a href="${response.url}">${response.url}</a>`);
                             $('#shareModal').modal('show');
                         },
                         error: function(error) {
@@ -78,7 +78,7 @@
                     });
                 });
 
-                // stop sharing button handler
+                // stop sharing button handler - make FlickPick private
                 $('#stop-share-button').on('click', function() {
                     var fp_id = $('#share-flick-pick-id').val();
                     console.log(fp_id);
@@ -128,7 +128,7 @@
                                         <a class="nav-link" href="mypicks.php">My Picks</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://www.noaa.gov/">Polls</a>
+                                        <a class="nav-link" href="blog.php">Blog</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="https://oceana.org/resources/ways-to-give/">Profile</a>
@@ -150,7 +150,7 @@
                             $flick_pick_details = fetchFlickPickDetails($flick_pick_id);
                         ?>
                         <h3 class="display-3" id="filmSearchHeading"><?= $flick_pick_details[0]['title']?></h3>
-                        <div>
+                        <div id="header-btns">
                             <a class="btn btn-primary" id="add-movie-button" href="index.php" style="margin-right: 10px;">+ Add Movie</a>
                             <button class="btn btn-primary" id="share-button">Share</button>
                             <?php
@@ -245,13 +245,14 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="shareModalLabel">Share FlickPick</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </button>
+                            </button> -->
                         </div>
                         <div class="modal-body" id="shareModalBody">
                             <!-- Response content will be displayed here -->
-                            <p>You can share your FlickPick using this link:</p>
+                            <p id="modal-first-para">You can share your FlickPick using this link:</p>
                             <p id="shareLink"></p>
                             <button type="button" class="btn btn-danger" id="stop-share-button" data-bs-dismiss="modal">Stop Sharing</button>
                         </div>

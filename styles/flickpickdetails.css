@@ -49,6 +49,19 @@
     border-color: var(--text-color-dark);
 }
 
+#shareLink a {
+    color: var(--highlight-color);
+    text-decoration: none;
+}
+
+#shareLink a:hover {
+    color: var(--highlight-color);
+    text-decoration: underline;
+}
+
+#shareLink a:visited {
+    color: var(--highlight-color);
+}
 
 /* #info-button.btn.btn-primary {
     background-color: var(--highlight-color);
@@ -64,6 +77,18 @@
 .row-btn {
     color: #e5e5e5;
     width: 20px;
+}
+
+.modal-content {
+    background-color: var(--background-color);
+}
+
+.modal-title {
+    color: var(--text-color-light);
+}
+
+#modal-first-para {
+    color: var(--text-color-light);
 }
 
 @media (max-width: 768px) {
@@ -87,5 +112,13 @@
     #movie-list {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    #share-button {
+        margin-bottom: 20px;
+    }
+
+    #add-movie-button {
+        margin-bottom: 20px;
     }
 }

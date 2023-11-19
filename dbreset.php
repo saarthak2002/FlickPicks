@@ -36,12 +36,31 @@
     //     poster text
     // );");
 
-    $res = $db->query("DROP TABLE IF EXISTS shareable;");
-    $res = $db->query("CREATE TABLE shareable (
-        id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        flickpick_id int,
-        share_id text
-    );");
+    // $res = $db->query("DROP TABLE IF EXISTS shareable;");
+    // $res = $db->query("CREATE TABLE shareable (
+    //     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    //     flickpick_id int,
+    //     share_id text
+    // );");
+
+    // $res = $db->query("DROP TABLE IF EXISTS blog_posts;");
+    // $res = $db->query("CREATE TABLE blog_posts (
+    //     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    //     user_id int,
+    //     author text,
+    //     title text,
+    //     description text,
+    //     content text
+    // );");
+
+    // $res = $db->query("DROP TABLE IF EXISTS comments;");
+    // $res = $db->query("CREATE TABLE comments (
+    //     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    //     user_id int,
+    //     post_id int,
+    //     comment_author text,
+    //     comment_text text
+    // );");
     
     $db->close();
 ?>

@@ -26,3 +26,40 @@
 .card-title {
     color: black !important;
 }
+
+.modal-content {
+    background-color: var(--background-color);
+}
+
+.modal-title {
+    color: var(--text-color-light);
+}
+
+.modal-body {
+    color: var(--text-color-light);
+}
+
+#description {
+    background-color: var(--text-color-light);
+}
+
+#title {
+    background-color: var(--text-color-light);
+}
+
+#modal-save-button {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#modal-save-button:hover {
+    background-color: var(--text-color-light);
+    border-color: var(--text-color-light);
+    color: #000000;
+}
+
+@media only screen and (max-width: 768px) {
+    #add-pick-button {
+        margin-bottom: 20px;
+    }
+}
