@@ -49,6 +49,12 @@
         );
         return $res;
     }
+
+    if(isset($flick_pick_id)) {
+        $flick_pick_details = fetchFlickPickDetails($flick_pick_id);
+        $user_details = fetchUserDetails($flick_pick_details[0]['user_id']);
+        $flick_pick_movies = fetchFlickPickMovies($flick_pick_id); // get all the movies from the database
+    }
 ?>
 
 <!-- Deployed site: https://cs4640.cs.virginia.edu/uzn2up/FlickPicks/ -->
@@ -63,6 +69,10 @@
         <meta name="author" content="Saarthak Gupta">
         <meta name="description" content="A platform to find and share the movies you love with the people you love.">
         <meta name="keywords" content="Movies, Films, Search, Reviews, Ratings">   
+
+        <meta property="og:title" content="<?php echo "{$flick_pick_details[0]['title']}"; ?>" />
+        <meta property="og:description" content="<?php echo "{$flick_pick_details[0]['description']}"; ?>" />
+        <meta property="og:image" content="<?php echo "{$flick_pick_movies[0]['poster']}"; ?>" />
         
         <title>FlickPicks</title>
 
@@ -110,7 +120,7 @@
                                         <a class="nav-link" href="mypicks.php">My Picks</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://www.noaa.gov/">Polls</a>
+                                        <a class="nav-link" href="blog.php">Blog</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="https://oceana.org/resources/ways-to-give/">Profile</a>
@@ -129,12 +139,19 @@
                                 
                     <div class="d-md-flex justify-content-between align-items-center">
                         <?php
-                            $flick_pick_details = fetchFlickPickDetails($flick_pick_id);
-                            $user_details = fetchUserDetails($flick_pick_details[0]['user_id']);
+                            
                         ?>
                         <h3 class="display-3" id="filmSearchHeading"><?= $flick_pick_details[0]['title']?></h3>
                         <h4 style="color: #e5e5e5;">by <?php echo "{$user_details[0]["firstname"]} {$user_details[0]["lastname"]}"; ?> </h4>
                     </div>
+                </div>
+
+                <div class="my-5" id="flickpick-desc-div">
+                    <p style="font-weight: 100; color: #e5e5e5; text-align: center;">
+                        <?php
+                            echo "{$flick_pick_details[0]['description']}";
+                        ?>
+                    </p>
                 </div>
 
                 <!-- Flick pick contents display -->
@@ -142,7 +159,7 @@
                     <div class="row" id="movie-list">
                         <!-- Movie rows are dynamically added here -->
                         <?php
-                            $flick_pick_movies = fetchFlickPickMovies($flick_pick_id); // get all the movies from the database
+                            // $flick_pick_movies = fetchFlickPickMovies($flick_pick_id); // get all the movies from the database
                             if(!empty($flick_pick_movies)) {
                                 foreach($flick_pick_movies as $movie) {
                                     $flickpicks_contents_id = $movie['id'];
