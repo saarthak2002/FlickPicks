@@ -77,6 +77,7 @@
                     data: {},
                     dataType: 'json',
                     success: function(response) {
+                        
                         for (var i = 0; i < response.length; i++) {
                             var post = response[i]; // This is a javascript object
                             console.log(post);
@@ -96,6 +97,7 @@
                                 `
                             );
                         }
+                        $("#loading-screen").hide();
                         
                         // add animation event handler to each card
                         var cards = document.querySelectorAll('.card');
@@ -111,6 +113,7 @@
                         
                     },
                     error: function(error) {
+                        $("#loading-screen").hide();
                         console.log(error);
                     }
                 });
@@ -173,7 +176,7 @@
                                         <a class="nav-link" href="blog.php">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://oceana.org/resources/ways-to-give/">Profile</a>
+                                        <a class="nav-link" href="profile.php">Profile</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="logout.php">Logout</a>
@@ -208,6 +211,14 @@
 
                 <!-- Blog posts are dynamically added here -->
                 <div class="container mb-5">
+                    <div id="loading-screen">
+                        <div class="container mb-5 d-flex justify-content-center align-items-center">
+                            <div class="spinner-border text-warning" role="status">
+                                <span class="sr-only"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div id="blog-post-container" class="row g-4">
 
                     </div>
@@ -223,6 +234,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         
         <script>
+            $("#loading-screen").show();
             fetchBlogPosts(); // call the function to fetch posts
         </script>
     </body>
